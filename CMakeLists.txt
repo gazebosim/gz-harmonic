@@ -53,3 +53,5 @@ if(build_errors)
   message(FATAL_ERROR "${error_str}")
 
 endif()
+
+install(DIRECTORY gazebodistro DESTINATION ${IGN_DATA_INSTALL_DIR})
