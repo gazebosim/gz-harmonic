@@ -3,6 +3,7 @@
 
 ## gazebosim/gz-cmake:
 - [Add support for adding cmake extras to packages](https://github.com/gazebosim/gz-cmake/pull/345)
+
  * This feature gives library authors the ability to export and install additional CMake functionality.
    This is useful for providing macros/functions for downstream developers to use as part of their CMake scripts.
 - [Add optional binary relocatability in downstream libraries](https://github.com/gazebosim/gz-cmake/pull/334)
@@ -13,6 +14,7 @@
 ## gazebosim/gz-common:
 - [Add CSV data parsing](https://github.com/gazebosim/gz-common/pull/402)
  * Adds a common implementation of parsing CSV data files.
+
 
 ## gazebosim/gz-fuel-tools:
 - [Reflect pagination of RESTful requests in iterator API ](https://github.com/gazebosim/gz-fuel-tools/pull/350)
@@ -29,6 +31,7 @@
 ## gazebosim/gz-msgs:
 - [Add Python message generation](https://github.com/gazebosim/gz-msgs/pull/362)
 - [Generate messages in downstream builds](https://github.com/gazebosim/gz-msgs/pull/339)
+
  * This re-works message generation both in the way that gz-msgs builds messages from protobuf definitions,
    as well as exports the functionality to downstream developers. Developers can now easily generate their
    own message definitions that are compatible with Gazebo tooling, such as msgs or transport.
