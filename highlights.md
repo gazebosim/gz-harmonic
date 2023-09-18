@@ -3,10 +3,18 @@
 
 ## gazebosim/gz-cmake:
 - [Add support for adding cmake extras to packages](https://github.com/gazebosim/gz-cmake/pull/345)
+
+ * This feature gives library authors the ability to export and install additional CMake functionality.
+   This is useful for providing macros/functions for downstream developers to use as part of their CMake scripts.
 - [Add optional binary relocatability in downstream libraries](https://github.com/gazebosim/gz-cmake/pull/334)
+ * Optional CMake behavior to allow for the built installation to be relocated to a different directory 
+   at runtime. Enabled via GZ_ENABLE_RELOCATABLE_INSTALL CMake variable. This feature is heavily used
+   in the conda distribution of the gazebo libraries.
 
 ## gazebosim/gz-common:
 - [Add CSV data parsing](https://github.com/gazebosim/gz-common/pull/402)
+ * Adds a common implementation of parsing CSV data files.
+
 
 ## gazebosim/gz-fuel-tools:
 - [Reflect pagination of RESTful requests in iterator API ](https://github.com/gazebosim/gz-fuel-tools/pull/350)
@@ -24,11 +32,18 @@
 - [Add Python message generation](https://github.com/gazebosim/gz-msgs/pull/362)
 - [Generate messages in downstream builds](https://github.com/gazebosim/gz-msgs/pull/339)
 
+ * This re-works message generation both in the way that gz-msgs builds messages from protobuf definitions,
+   as well as exports the functionality to downstream developers. Developers can now easily generate their
+   own message definitions that are compatible with Gazebo tooling, such as msgs or transport.
+
 ## gazebosim/gz-physics:
 - [Mimic constraint feature using bullet-featherstone](https://github.com/gazebosim/gz-physics/pull/517)
 - [dartsim: Add support for joints in worlds](https://github.com/gazebosim/gz-physics/pull/501)
 - [Support fluid added mass](https://github.com/gazebosim/gz-physics/pull/384), [gz-physics#462](https://github.com/gazebosim/gz-physics/pull/462)
+ * Adds support for simulating the virtual mass of the displaced volume of objects that are moving through fluids.
 - [Add bullet-featherstone plugin](https://github.com/gazebosim/gz-physics/pull/373), [gz-physics#434](https://github.com/gazebosim/gz-physics/pull/434)
+ * Adds support for Bullet's featherstone implementation, which is a technique using a reduced coordinate respresentation of open
+   kinematic chains. For simulations involving open kinematic chains, RTF performance may be better under this plugin.
 
 ## gazebosim/gz-rendering:
 - [Add Projector](https://github.com/gazebosim/gz-rendering/pull/845)
@@ -66,6 +81,7 @@
 - [Add SensorTopic component to rendering sensors](https://github.com/gazebosim/gz-sim/pull/1908)
 - [Add Lens Flare System](https://github.com/gazebosim/gz-sim/pull/1933)
 - [Fluid added mass](https://github.com/gazebosim/gz-sim/pull/1592)
+ * Similar to the gz-physics feature, this adds support for fluid added mass in the simulator itself.
 - [Add airspeed sensor](https://github.com/gazebosim/gz-sim/pull/1847)
 - [Allow using a CSV file to define currents for hydrodynamic system](https://github.com/gazebosim/gz-sim/pull/1839)
 - [Add multichannel lookup for environment sensors.](https://github.com/gazebosim/gz-sim/pull/1814)
@@ -86,6 +102,7 @@
 
 ## gazebosim/gz-utils:
 - [Add a utility for spawning subprocesses](https://github.com/gazebosim/gz-utils/pull/98)
+ * Refactors common functionality for spawning executables into the utils package.
 
 ## gazebosim/ros_gz_project_template:
 - [Add rrbot example setup & update readme](https://github.com/gazebosim/ros_gz_project_template/pull/9)
@@ -99,5 +116,6 @@
 - [Add Airspeed sensor](https://github.com/gazebosim/sdformat/pull/1215)
 - [Add support for merge-includes in worlds](https://github.com/gazebosim/sdformat/pull/1233)
 - [Port embedSdf script from Ruby to Python3](https://github.com/gazebosim/sdformat/pull/884)
+ * Ports remaining Ruby build-dependencies into Python. SDFormat now has no build dependency on Ruby.
 - [Add camera info topic to Camera](https://github.com/gazebosim/sdformat/pull/1198)
 - [sdf/1.10: support //world/joint specification](https://github.com/gazebosim/sdformat/pull/1117)
