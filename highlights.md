@@ -68,7 +68,7 @@
   - Adds Real Time Global Illumination on the GUI side based on one of these two techniques:
     1. VCT (Voxel Cone Tracing)
     2. CI VCT (Cascaded Image Voxel Cone Tracing). Requires Vulkan.
-    A GUI plugin is provided for each Global illumination techniique and offers a number of configurable parameters such as
+    A GUI plugin is provided for each Global illumination technique and offers a number of configurable parameters such as
     bounce count and voxel resolution that affect the quality of the resulting scene. Global illumination for camera sensors
     is not available yet.
 
