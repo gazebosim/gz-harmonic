@@ -52,7 +52,7 @@
 - [Mimic constraint feature using bullet-featherstone](https://github.com/gazebosim/gz-physics/pull/517)
   - Adds a new joint actuation constraint called the Mimic constraint that enforces a linear relationship between
     the output position of two joint axes. This is serves as a better alternative to the Gearbox joint and provides more
-    flexibilty as it allows setting constraints on the output of prismatic joints and other joints with translational
+    flexibility as it allows setting constraints on the output of prismatic joints and other joints with translational
     outputs. This feature is currently only available when using the Bullet-featherstone physics engine in Gazebo. (See
     [gz-sim#1838](https://github.com/gazebosim/gz-sim/pull/1838),
     [sdformat#1166](https://github.com/gazebosim/sdformat/pull/1166))
@@ -68,7 +68,7 @@
   - Adds Real Time Global Illumination on the GUI side based on one of these two techniques:
     1. VCT (Voxel Cone Tracing)
     2. CI VCT (Cascaded Image Voxel Cone Tracing). Requires Vulkan.
-    A GUI plugin is provided for each Global illumination techinique and offers a number of configurable parameters such as
+    A GUI plugin is provided for each Global illumination techniique and offers a number of configurable parameters such as
     bounce count and voxel resolution that affect the quality of the resulting scene. Global illumination for camera sensors
     is not available yet.
 
@@ -140,7 +140,7 @@
 - [Add optional optical frame id to camera sensors](https://github.com/gazebosim/gz-sensors/pull/259)
 - [Add more convenience classes (Light, Actor, Sensor](https://github.com/gazebosim/gz-sim/pull/1918), [gz-sim#1913](https://github.com/gazebosim/gz-sim/pull/1913), [gz-sim#1912](https://github.com/gazebosim/gz-sim/pull/1912), [gz-sim#1910](https://github.com/gazebosim/gz-sim/pull/1910)
   - [Adds Python bindings for convenience class (Actor, Joint, Link, Model, Sensor, World)](https://github.com/gazebosim/gz-sim/pull/2043)
-  - Adds convenience classes that abstract the Entity-Component-System (ECS) artchitecture and provide more user-friendly APIs are similar to
+  - Adds convenience classes that abstract the Entity-Component-System (ECS) architecture and provide more user-friendly APIs are similar to
     those found in Gazebo-classic.
 - [Allow re-attaching detached joint](https://github.com/gazebosim/gz-sim/pull/1687)
 - [Allow specifying initial simulation time with a CLI argument](https://github.com/gazebosim/gz-sim/pull/1801)
