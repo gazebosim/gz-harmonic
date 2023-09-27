@@ -52,7 +52,7 @@
 - [Mimic constraint feature using bullet-featherstone](https://github.com/gazebosim/gz-physics/pull/517)
   - Adds a new joint actuation constraint called the Mimic constraint that enforces a linear relationship between
     the output position of two joint axes. This is serves as a better alternative to the Gearbox joint and provides more
-    flexibilty as it allows setting constraints on the output of prismatic joints and other joints with translational
+    flexibility as it allows setting constraints on the output of prismatic joints and other joints with translational
     outputs. This feature is currently only available when using the Bullet-featherstone physics engine in Gazebo. (See
     [gz-sim#1838](https://github.com/gazebosim/gz-sim/pull/1838),
     [sdformat#1166](https://github.com/gazebosim/sdformat/pull/1166))
@@ -65,9 +65,12 @@
     [gz-rendering#752](https://github.com/gazebosim/gz-rendering/pull/752))
 
 - [Global illumination VCT & CI VCT](https://github.com/gazebosim/gz-rendering/pull/675)
-  - Adds Real Time Global Illumination based on one of these two techniques:
+  - Adds Real Time Global Illumination on the GUI side based on one of these two techniques:
     1. VCT (Voxel Cone Tracing)
-    2. CI VCT (Cascaded Image Voxel Cone Tracing)
+    2. CI VCT (Cascaded Image Voxel Cone Tracing). Requires Vulkan.
+    A GUI plugin is provided for each Global illumination technique and offers a number of configurable parameters such as
+    bounce count and voxel resolution that affect the quality of the resulting scene. Global illumination for camera sensors
+    is not available yet.
 
 - [Add Vulkan QML backend](https://github.com/gazebosim/gz-gui/pull/467)
 - [Add support for Acoustic comms](https://github.com/gazebosim/gz-sim/pull/1755), [gz-sim#1793](https://github.com/gazebosim/gz-sim/pull/1793)
@@ -77,10 +80,21 @@
 - [Support world joints (joints inside `<world>` tags)](https://github.com/gazebosim/gz-sim/pull/1949)
   - [dartsim: Add support for joints in worlds](https://github.com/gazebosim/gz-physics/pull/501)
   - [sdf/1.10: support //world/joint specification](https://github.com/gazebosim/sdformat/pull/1117)
+
 - [Add Projector](https://github.com/gazebosim/gz-rendering/pull/845)
   - [Support loading Projectors](https://github.com/gazebosim/gz-sim/pull/1979)
   - [Add Projector DOM](https://github.com/gazebosim/sdformat/pull/1277)
+  - Adds a projector feature that projects out a texture onto a surface. A projector can be attached to a link in sdf
+    using the [`<projector>`](http://sdformat.org/spec?ver=1.10&elem=link#link_projector) sdf element. The feature is supported
+    in both Ogre and Ogre2 rendering engines. One caveat with the Ogre2 implementation is that the projection
+    is not in the form of a "frustum" (i.e. projection becomes larger at longer distance) but it's done using screen space decals.
+    Think of it as a rectangular volume and any surface that intersects with the volume will have the texture mapped onto it.
+
 - [Add Support for wide-angle cameras in ogre2](https://github.com/gazebosim/gz-rendering/pull/733)
+  - Ports the wide angle camera implementation to the Ogre2 render engine. It supports the same
+    [lens mapping functions](http://sdformat.org/spec?ver=1.10&elem=sensor#lens_type) that are available in
+    Ogre the render engine. Lens flares are also supported.
+
 - [Add DopplerVelocityLog sensor](https://github.com/gazebosim/gz-sensors/pull/290)
   - [Add DopplerVelocityLogSystem plugin](https://github.com/gazebosim/gz-sim/pull/1804)
 - [Add airspeed sensor](https://github.com/gazebosim/gz-sensors/pull/305)
@@ -103,18 +117,36 @@
 - [Add CSV data parsing capability in `gz-common`](https://github.com/gazebosim/gz-common/pull/402)
   - Adds a common implementation of parsing CSV data files.
 - [MecanumDriveOdometry to handle odometry estimation of Mecanum wheeled models](https://github.com/gazebosim/gz-math/pull/486)
+
 - [Add support for bayer images to Ogre and Ogre2](https://github.com/gazebosim/gz-rendering/pull/838)
+  - Extends camera sensors to support Bayer image formats. To use these formats, set the
+    [`<format>`](http://sdformat.org/spec?ver=1.10&elem=sensor#image_format) sdf element to one of these strings:
+    `BAYER_RGGB8`, `BAYER_BGGR8`, `BAYER_GBRG8`, `BAYER_GRBG8`. The `Image Display` GUI plugin in Gazebo has also been
+    extended to support visualizing Bayer images.
+
 - [Set custom camera projection values from SDFormat](https://github.com/gazebosim/gz-sensors/pull/314), also [gz-sensors#293](https://github.com/gazebosim/gz-sensors/pull/293), [gz-sensors#249](https://github.com/gazebosim/gz-sensors/pull/249)
   - [Update Camera Intrinsics in camera_info topic](https://github.com/gazebosim/gz-sensors/pull/281)
+  - Allows users to set the projection matrix of a camera sensor via the
+    [`<projection>`](http://sdformat.org/spec?ver=1.10&elem=sensor#lens_projection) sdf element.
+    Similarly, if the lens [`<intrinsics>`](http://sdformat.org/spec?ver=1.10&elem=sensor#lens_intrinsics) parameters are specified,
+    the camera sensor will use a custom projection matrix that is built from these values.
+
 - [Add Camera Info topic support for cameras](https://github.com/gazebosim/gz-sensors/pull/285)
   - [Add camera info topic to Camera](https://github.com/gazebosim/sdformat/pull/1198)
+
 - [Add support for 16 bit image format](https://github.com/gazebosim/gz-sensors/pull/276)
+  - Extends camera sensors to support 16 bit grayscale image format. To use this format, set the [`<format>`](http://sdformat.org/spec?ver=1.10&elem=sensor#image_format) sdf element to `L_INT16`.
+
 - [Add optional optical frame id to camera sensors](https://github.com/gazebosim/gz-sensors/pull/259)
 - [Add more convenience classes (Light, Actor, Sensor](https://github.com/gazebosim/gz-sim/pull/1918), [gz-sim#1913](https://github.com/gazebosim/gz-sim/pull/1913), [gz-sim#1912](https://github.com/gazebosim/gz-sim/pull/1912), [gz-sim#1910](https://github.com/gazebosim/gz-sim/pull/1910)
   - [Adds Python bindings for convenience class (Actor, Joint, Link, Model, Sensor, World)](https://github.com/gazebosim/gz-sim/pull/2043)
+  - Adds convenience classes that abstract the Entity-Component-System (ECS) architecture and provide more user-friendly APIs are similar to
+    those found in Gazebo-classic.
 - [Allow re-attaching detached joint](https://github.com/gazebosim/gz-sim/pull/1687)
 - [Allow specifying initial simulation time with a CLI argument](https://github.com/gazebosim/gz-sim/pull/1801)
 - [Add SensorTopic component to rendering sensors](https://github.com/gazebosim/gz-sim/pull/1908)
+  - Add a `SensorTopic` component that stores the name of the sensor topic. This allows retrieval of the sensor topic string
+    that is either specified via the `<topic>` sdf element or dynamically generated by Gazebo if no `<topic>` is specified.
 - [Add thrust coefficient calculation](https://github.com/gazebosim/gz-sim/pull/1652)
 - [Add magnetometer value based on location](https://github.com/gazebosim/gz-sim/pull/1907)
 - [JointPosController: support nested joints](https://github.com/gazebosim/gz-sim/pull/1851)
