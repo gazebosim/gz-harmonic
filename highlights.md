@@ -73,13 +73,34 @@
     is not available yet.
 
 - [Add Vulkan QML backend](https://github.com/gazebosim/gz-gui/pull/467)
+  - Improves support for the Vulkan in the 3D rendering window in Gazebo GUI by adding native Vulkan backend using
+    Qt's QML Vulkan Render Hardware Interface (RHI).
+    For Qt versions >= 5.15.2, Gazebo is able to pass the Vulkan texture from Ogre to Qt and renders it onto the QQuickWindow (GPU -> GPU).
+    For Qt versions < 5.15.2, a fallback method is used in which the Vulkan texture from Ogre is first transferred to the CPU then passed
+    to Qt (GPU -> CPU -> GPU).
+
 - [Add support for Acoustic comms](https://github.com/gazebosim/gz-sim/pull/1755), [gz-sim#1793](https://github.com/gazebosim/gz-sim/pull/1793)
+  - Adds an acoustic comms system. The system contains a propagation model implemented where the signal to noise ratio
+    is computed using sonar equation (as opposed to log path loss equation in RF comms propagation model) which in turn
+    affects the packet drop probability.
+
 - [Show subscribers info when running topic info](https://github.com/gazebosim/gz-transport/pull/384)
   - [List subscribed topics when running topic list](https://github.com/gazebosim/gz-transport/pull/379)
+  - Adds the ability to list subscribers and show their info. Previously when using the `gz topic` CLI, only publishers are
+    listed when `gz topic -l` or `gz topic -i -t <topic_name>` is invoked. Now it is possible to also see information
+    about the subscribers.
+
 - [Add support for merge-includes in worlds](https://github.com/gazebosim/sdformat/pull/1233)
+  - Implements support for the `//world/include/@merge` SDF tag, i.e. `<include merge='true'>` in `<world>`.
+    Merge-include in `<world>` allows models that themselves contain nested models to be merged into the world such that
+    the nested models are placed directly in the `<world>` without the additional name scope of the parent model.
+
 - [Support world joints (joints inside `<world>` tags)](https://github.com/gazebosim/gz-sim/pull/1949)
   - [dartsim: Add support for joints in worlds](https://github.com/gazebosim/gz-physics/pull/501)
   - [sdf/1.10: support //world/joint specification](https://github.com/gazebosim/sdformat/pull/1117)
+  - Implements support for the `//world/joint` SDF tag that allows two models in `<world>` to be attached together by
+    the specified joint. Note that some systems that operate on joints, such as the JointPositionController,
+    require that the system is instantiated inside a model, and therefore, will not work with world joints.
 
 - [Add Projector](https://github.com/gazebosim/gz-rendering/pull/845)
   - [Support loading Projectors](https://github.com/gazebosim/gz-sim/pull/1979)
@@ -97,26 +118,53 @@
 
 - [Add DopplerVelocityLog sensor](https://github.com/gazebosim/gz-sensors/pull/290)
   - [Add DopplerVelocityLogSystem plugin](https://github.com/gazebosim/gz-sim/pull/1804)
+  - Adds DopplerVelocityLog (DVL) sensor that produces velocity estimates of the vehicle. Two modes are available: bottom tracking
+    and water mass tracking. With bottom tracking, the DVL sensor has multiple configurable acoustic beams pointing downwards at an angle
+    to the seabed to measure distance and compute velocity as the vehicle moves over time. Water mass tracking can be used when
+    seabed is not available or within range of the beams. This particular mode requires the EnvironmentPreload system to be loaded as well,
+    which will parse and load water velocity data from a CSV file into the `EnvironmentalData` component.
+
 - [Add airspeed sensor](https://github.com/gazebosim/gz-sensors/pull/305)
   - [Add airspeed sensor](https://github.com/gazebosim/gz-sim/pull/1847)
   - [Add Airspeed sensor](https://github.com/gazebosim/sdformat/pull/1215)
+  - Adds air speed sensor that measures differential pressure (hPa) and temperature (kelvin) at a given altitude. Optional Gaussian noise
+    model can be applied to the pressure data.
+
 - [Add Reset button to world_control](https://github.com/gazebosim/gz-gui/pull/476)
+  - Adds a reset button to the WorldControl GUI plugin which by default is located at the lower left corner of the Gazebo GUI window.
+    When pressed, the plugin makes a request to the server to reset the simulation.
+
 - [Allow loading a model SDF file in the Server class, and from the command line](https://github.com/gazebosim/gz-sim/pull/1775)
+  - Adds support for `gz sim` to load a model SDF file (in addition to a world SDF file). The model is loaded into
+    the default world. Specifically, this is done by updating the constructor of the Server class to handle SDF files
+    that contain a `<model>` without a `<world>`.
+
 - [Allow using a CSV file to define currents for hydrodynamic system](https://github.com/gazebosim/gz-sim/pull/1839)
   - [Add multichannel lookup for environment sensors.](https://github.com/gazebosim/gz-sim/pull/1814)
   - [Adds a tool for environment data visualization](https://github.com/gazebosim/gz-sim/pull/1748)
+  - Extends the Hydrodynamic system to support reading water current data from a defined in a CSV file.
+    This requires that The EnvironmentPreload system to be available in the world, which is used to parse and load
+    the data in the CSV file into the `EnvironmentalData` component.
+
 - [Include contact force, normal, and depth in contact message](https://github.com/gazebosim/gz-sim/pull/2050)
+  - In addition to position data, the contact message published by a contact sensor now includes force, normal and
+    depth data for each contact point.
 
 - [Add support for adding cmake extras to packages in `gz-cmake`](https://github.com/gazebosim/gz-cmake/pull/345)
   - This feature gives library authors the ability to export and install additional CMake functionality.
   This is useful for providing macros/functions for downstream developers to use as part of their CMake scripts.
+
 - [Add optional binary relocatability in all Gazebo libraries](https://github.com/gazebosim/gz-cmake/pull/334)
   - Optional CMake behavior to allow for the built installation to be relocated to a different directory
     at runtime. Enabled via `GZ_ENABLE_RELOCATABLE_INSTALL` CMake variable. This feature is heavily used
     in the conda distribution of the gazebo libraries.
+
 - [Add CSV data parsing capability in `gz-common`](https://github.com/gazebosim/gz-common/pull/402)
   - Adds a common implementation of parsing CSV data files.
+
 - [MecanumDriveOdometry to handle odometry estimation of Mecanum wheeled models](https://github.com/gazebosim/gz-math/pull/486)
+  - Adds a math class to compute odometry estimation based on a set of kinematic properties and wheel speeds for
+    Mecanum-drive vehicles.
 
 - [Add support for bayer images to Ogre and Ogre2](https://github.com/gazebosim/gz-rendering/pull/838)
   - Extends camera sensors to support Bayer image formats. To use these formats, set the
@@ -133,23 +181,49 @@
 
 - [Add Camera Info topic support for cameras](https://github.com/gazebosim/gz-sensors/pull/285)
   - [Add camera info topic to Camera](https://github.com/gazebosim/sdformat/pull/1198)
+  - Adds support for configuring the camera info topic via the `<camera_info_topic>` SDF parameter inside `<camera>`.
 
 - [Add support for 16 bit image format](https://github.com/gazebosim/gz-sensors/pull/276)
   - Extends camera sensors to support 16 bit grayscale image format. To use this format, set the [`<format>`](http://sdformat.org/spec?ver=1.10&elem=sensor#image_format) sdf element to `L_INT16`.
 
 - [Add optional optical frame id to camera sensors](https://github.com/gazebosim/gz-sensors/pull/259)
+  - Extends CameraSensor and RGBDCameraSensor to parse the optional `<optical_frame_id>` SDF parameter.
+    If the parameter is specified, the published sensor messages will now have their `frame_id` in the message
+    header set to the specified value.
+
 - [Add more convenience classes (Light, Actor, Sensor](https://github.com/gazebosim/gz-sim/pull/1918), [gz-sim#1913](https://github.com/gazebosim/gz-sim/pull/1913), [gz-sim#1912](https://github.com/gazebosim/gz-sim/pull/1912), [gz-sim#1910](https://github.com/gazebosim/gz-sim/pull/1910)
   - [Adds Python bindings for convenience class (Actor, Joint, Link, Model, Sensor, World)](https://github.com/gazebosim/gz-sim/pull/2043)
   - Adds convenience classes that abstract the Entity-Component-System (ECS) architecture and provide more user-friendly APIs are similar to
     those found in Gazebo-classic.
+
 - [Allow re-attaching detached joint](https://github.com/gazebosim/gz-sim/pull/1687)
+  - Extends the DetachableJoint system to support reattaching joints. The system now offers an topic that allows users to
+    publish an empty message reattach the child link back to the parent link using a fixed joint.
+    The topic name can be configured using the `<attach_topic>` parameter in SDF.
+
 - [Allow specifying initial simulation time with a CLI argument](https://github.com/gazebosim/gz-sim/pull/1801)
+  - Adds an optional command line argument, `initial-sim-time`, to `gz sim` for setting the initial value of the simulation time.
+    Usage: `gz sim --initial-sim-time [t]`, where `[t]` is the time in seconds (floating point value)
+    at which the simulation time will be set to when the simulator is started.
+
 - [Add SensorTopic component to rendering sensors](https://github.com/gazebosim/gz-sim/pull/1908)
   - Add a `SensorTopic` component that stores the name of the sensor topic. This allows retrieval of the sensor topic string
     that is either specified via the `<topic>` sdf element or dynamically generated by Gazebo if no `<topic>` is specified.
+
 - [Add thrust coefficient calculation](https://github.com/gazebosim/gz-sim/pull/1652)
+  - Extends the Thruster system to support new parameters: `<wake_fraction>`, `<alpha_1>`, `<alpha_2>`. When specified,
+    these parameters are used together with the vehicle linear velocity to compute the thrust coefficient
+    based on Fossen's equations described in "Guidance and Control of Ocean Vehicles".
+
 - [Add magnetometer value based on location](https://github.com/gazebosim/gz-sim/pull/1907)
-- [JointPosController: support nested joints](https://github.com/gazebosim/gz-sim/pull/1851)
+  - Extends the Magnetometer system to support computing the magnetic field based on the sensor's location
+    (spherical coordinates). The lat/lon coordinates index into lookup tables for Earth's magnetic field declination (deg),
+    inclination (deg) and strength (centi-Tesla) that are used to compute the sensor's world magnetic field value.
+
+- [JointPositionController: support nested joints](https://github.com/gazebosim/gz-sim/pull/1851)
+  - Extends the Joint Position Controller system to support controlling nested joints (joints in nested models)
+    by looking up joints using scoped names in addition to unscoped names. Users can now specify scoped names using the
+   `<joint_name>` SDF param in the Joint Position Controller system, i.e. `model_name::joint_name`.
 
 - [Add a utility for spawning subprocesses](https://github.com/gazebosim/gz-utils/pull/98)
   - Refactors common functionality for spawning executables into the utils package.
