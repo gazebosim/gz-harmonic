@@ -75,7 +75,7 @@
 - [Add Vulkan QML backend](https://github.com/gazebosim/gz-gui/pull/467)
   - Improves support for the Vulkan in the 3D rendering window in Gazebo GUI by adding native Vulkan backend using
     Qt's QML Vulkan Render Hardware Interface (RHI).
-    For Qt versions >= 5.15.2, Gazebo is able to pass the Vulkan texuture from Ogre to Qt and renders it onto the QQuickWindow (GPU -> GPU).
+    For Qt versions >= 5.15.2, Gazebo is able to pass the Vulkan texture from Ogre to Qt and renders it onto the QQuickWindow (GPU -> GPU).
     For Qt versions < 5.15.2, a fallback method is used in which the Vulkan texture from Ogre is first transferred to the CPU then passed
     to Qt (GPU -> CPU -> GPU).
 
@@ -87,7 +87,7 @@
 - [Show subscribers info when running topic info](https://github.com/gazebosim/gz-transport/pull/384)
   - [List subscribed topics when running topic list](https://github.com/gazebosim/gz-transport/pull/379)
   - Adds the ability to list subscribers and show their info. Previously when using the `gz topic` CLI, only publishers are
-    listed when `gz topic -l` or `gz topic -i -t <topic_name>` is invoked. Now it is possible to also see informatiion
+    listed when `gz topic -l` or `gz topic -i -t <topic_name>` is invoked. Now it is possible to also see information
     about the subscribers.
 
 - [Add support for merge-includes in worlds](https://github.com/gazebosim/sdformat/pull/1233)
@@ -120,7 +120,7 @@
   - [Add DopplerVelocityLogSystem plugin](https://github.com/gazebosim/gz-sim/pull/1804)
   - Adds DopplerVelocityLog (DVL) sensor that produces velocity estimates of the vehicle. Two modes are available: bottom tracking
     and water mass tracking. With bottom tracking, the DVL sensor has multiple configurable acoustic beams pointing downwards at an angle
-    to the seabed to measure distance and computes velocity as the vehicle moves over time. Water mass tracking can be used when
+    to the seabed to measure distance and compute velocity as the vehicle moves over time. Water mass tracking can be used when
     seabed is not available or within range of the beams. This particular mode requires the EnvironmentPreload system to be loaded as well,
     which will parse and load water velocity data from a CSV file into the `EnvironmentalData` component.
 
@@ -128,7 +128,7 @@
   - [Add airspeed sensor](https://github.com/gazebosim/gz-sim/pull/1847)
   - [Add Airspeed sensor](https://github.com/gazebosim/sdformat/pull/1215)
   - Adds air speed sensor that measures differential pressure (hPa) and temperature (kelvin) at a given altitude. Optional Gaussian noise
-    model can be appied to the pressure data.
+    model can be applied to the pressure data.
 
 - [Add Reset button to world_control](https://github.com/gazebosim/gz-gui/pull/476)
   - Adds a reset button to the WorldControl GUI plugin which by default is located at the lower left corner of the Gazebo GUI window.
@@ -187,7 +187,9 @@
   - Extends camera sensors to support 16 bit grayscale image format. To use this format, set the [`<format>`](http://sdformat.org/spec?ver=1.10&elem=sensor#image_format) sdf element to `L_INT16`.
 
 - [Add optional optical frame id to camera sensors](https://github.com/gazebosim/gz-sensors/pull/259)
-  - Extends CameraSensor and RGBDCameraSensor to parse the optional `<optical_frame_id>` SDF parameter. If the parameter is specified, the publisehd sensor messages will now have their `frame_id` in the message header set to the specified value.
+  - Extends CameraSensor and RGBDCameraSensor to parse the optional `<optical_frame_id>` SDF parameter.
+    If the parameter is specified, the published sensor messages will now have their `frame_id` in the message
+    header set to the specified value.
 
 - [Add more convenience classes (Light, Actor, Sensor](https://github.com/gazebosim/gz-sim/pull/1918), [gz-sim#1913](https://github.com/gazebosim/gz-sim/pull/1913), [gz-sim#1912](https://github.com/gazebosim/gz-sim/pull/1912), [gz-sim#1910](https://github.com/gazebosim/gz-sim/pull/1910)
   - [Adds Python bindings for convenience class (Actor, Joint, Link, Model, Sensor, World)](https://github.com/gazebosim/gz-sim/pull/2043)
@@ -196,11 +198,11 @@
 
 - [Allow re-attaching detached joint](https://github.com/gazebosim/gz-sim/pull/1687)
   - Extends the DetachableJoint system to support reattaching joints. The system now offers an topic that allows users to
-    publish an empty message to for reattaching the child link back to the parent link using a fixed joint.
+    publish an empty message reattach the child link back to the parent link using a fixed joint.
     The topic name can be configured using the `<attach_topic>` parameter in SDF.
 
 - [Allow specifying initial simulation time with a CLI argument](https://github.com/gazebosim/gz-sim/pull/1801)
-  - Adds an optional command line argument, `initial-sim-time`, to `gz sim` for setting initial value of the simulation time.
+  - Adds an optional command line argument, `initial-sim-time`, to `gz sim` for setting the initial value of the simulation time.
     Usage: `gz sim --initial-sim-time [t]`, where `[t]` is the time in seconds (floating point value)
     at which the simulation time will be set to when the simulator is started.
 
@@ -209,18 +211,18 @@
     that is either specified via the `<topic>` sdf element or dynamically generated by Gazebo if no `<topic>` is specified.
 
 - [Add thrust coefficient calculation](https://github.com/gazebosim/gz-sim/pull/1652)
-  - Extends the Thruster system to support a new parameters (`<wake_fraction>`, `<alpha_1>`, `<alpha_2>`). When specified,
+  - Extends the Thruster system to support new parameters: `<wake_fraction>`, `<alpha_1>`, `<alpha_2>`. When specified,
     these parameters are used together with the vehicle linear velocity to compute the thrust coefficient
     based on Fossen's equations described in "Guidance and Control of Ocean Vehicles".
 
 - [Add magnetometer value based on location](https://github.com/gazebosim/gz-sim/pull/1907)
   - Extends the Magnetometer system to support computing the magnetic field based on the sensor's location
     (spherical coordinates). The lat/lon coordinates index into lookup tables for Earth's magnetic field declination (deg),
-    inclination (deg) and strength (centi-Tesla) that are used to computed the sensor's world magnetic field value.
+    inclination (deg) and strength (centi-Tesla) that are used to compute the sensor's world magnetic field value.
 
 - [JointPositionController: support nested joints](https://github.com/gazebosim/gz-sim/pull/1851)
   - Extends the Joint Position Controller system to support controlling nested joints (joints in nested models)
-    by looking up joints using scoped name in addition to unscoped names. Users can now specify scoped nameds in the
+    by looking up joints using scoped names in addition to unscoped names. Users can now specify scoped names using the
    `<joint_name>` SDF param in the Joint Position Controller system, i.e. `model_name::joint_name`.
 
 - [Add a utility for spawning subprocesses](https://github.com/gazebosim/gz-utils/pull/98)
