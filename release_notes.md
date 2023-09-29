@@ -2,7 +2,7 @@
 - [Add ROS 2 Integration Tutorials](https://github.com/gazebosim/docs/pull/371)
 - [Add section on macOS in get started page](https://github.com/gazebosim/docs/pull/346)
 - [Add per-library tutorial links to tutorial page](https://github.com/gazebosim/docs/pull/349)
-- [Change get_started to recommened Gz version per platform for installations](https://github.com/gazebosim/docs/pull/338)
+- [Change get_started to recommended Gz version per platform for installations](https://github.com/gazebosim/docs/pull/338)
 
 ## gazebosim/gz-cmake:
 - [Add support for adding cmake extras to packages](https://github.com/gazebosim/gz-cmake/pull/345)
