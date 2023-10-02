@@ -14,7 +14,7 @@ find_package(gz-cmake3 REQUIRED)
 #============================================================================
 # Configure the project
 #============================================================================
-gz_configure_project(VERSION_SUFFIX pre2)
+gz_configure_project(VERSION_SUFFIX)
 
 # all list of harmonic packages
 
